@@ -12,7 +12,7 @@ Includes dynamic user feedback integration and real-time retraining.
 
 ## 📁 Project Structure
 
-```bash
+```
 recommendation_engine/
 ├── data/ # Raw and feedback data
 │ ├── u.data # Ratings
@@ -27,7 +27,7 @@ recommendation_engine/
 ├── main.py # CLI interface for model selection
 ├── requirements.txt
 └── README.md
-```bash
+```
 
 ---
 
@@ -62,7 +62,7 @@ recommendation_engine/
 ## 🚀 How to Run
 
 ### 1. Install Requirements
-```bash
+```
 pip install -r requirements.txt
 
 2. Run the Application
@@ -74,7 +74,7 @@ python main.py
 2 → SVD (Enter user ID and movie ID)
 
 3 → NCF (Trains model, then prompts for user ID and movie ID)
-```bash
+```
 
 ---
 ✅ Example Workflow
@@ -115,13 +115,13 @@ torch
 ---
 
 📊 Evaluation Metrics
-```bash
+```
 | Model                      | Evaluation Metric    |
 | -------------------------- | -------------------- |
 | Content-Based Filtering    | Similarity Score     |
 | Collaborative Filtering    | RMSE                 |
 | Neural Collaborative (NCF) | RMSE + Feedback Loop |
-```bash
+```
 ---
 
 🧠 Future Enhancements
@@ -142,7 +142,7 @@ Libraries: Surprise, PyTorch, scikit-learn
 
 ## Project Requirements
 
-```bash
+```
 | Requirement                                                                           | Status in Your Project | Comments                                                                                                                             |
 | ------------------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | **Use publicly available dataset (MovieLens)**                                        | ✅ Completed            | Using MovieLens 100k dataset loaded and cleaned in `utils.py` and elsewhere.                                                         |
@@ -153,4 +153,4 @@ Libraries: Surprise, PyTorch, scikit-learn
 | **Experiment with Neural Network-based recommendations (Embeddings or Autoencoders)** | ✅ Completed            | Neural Collaborative Filtering implemented with embeddings and multi-layer perceptron (`neural_net.py`).                             |
 | **Allow users to give feedback on recommendations**                                   | ✅ Completed            | Feedback functionality implemented (`feedback.py`), feedback stored and used.                                                        |
 | **Retrain models dynamically with feedback**                                          | ✅ Completed            | Users can retrain the Neural CF model interactively with feedback (`main.py`).                                                       |
-```bash
+```
