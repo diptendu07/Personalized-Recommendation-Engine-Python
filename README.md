@@ -59,6 +59,23 @@ recommendation_engine/
 
 ---
 
+## 📂 File Descriptions
+```
+| Filename            | Purpose                                                                                |
+| ------------------- | -------------------------------------------------------------------------------------- |
+| `content_based.py`  | Implements Content-Based Filtering using TF-IDF vectorization and cosine similarity.   |
+| `collaborative.py`  | Implements Collaborative Filtering with SVD matrix factorization via Surprise library. |
+| `neural_net.py`     | Implements Neural Collaborative Filtering (NCF) with embeddings and MLP in PyTorch.    |
+| `evaluate.py`       | Evaluation utilities, primarily RMSE calculation to assess prediction accuracy.        |
+| `feedback.py`       | Collects and stores user feedback; integrates feedback for dynamic retraining.         |
+| `utils.py`          | Data loading, preprocessing, and utility functions used across models.                 |
+| `main.py`           | Command-line interface for model selection, running, and retraining workflow.          |
+| `requirements.txt`  | Lists all Python package dependencies for the project.                                 |
+| `data/u.data`       | Original user-movie ratings from the MovieLens 100k dataset.                           |
+| `data/u.item`       | Movie metadata file from MovieLens dataset.                                            |
+| `data/feedback.csv` | Stores dynamic user feedback ratings for retraining models.                            |
+```
+
 ## 🚀 How to Run
 
 ### 1. Install Requirements
@@ -75,20 +92,20 @@ python main.py
 
 3 → NCF (Trains model, then prompts for user ID and movie ID)
 ```
-
 ---
-✅ Example Workflow
-Case 1: Content-Based Filtering
+
+## ✅ Example Workflow
+### Case 1: Content-Based Filtering
 Input: "Star Wars (1977)"
 
 Output: Similar movies like The Empire Strikes Back, Return of the Jedi, etc.
 
-Case 2: Collaborative Filtering (SVD)
+### Case 2: Collaborative Filtering (SVD)
 Input: User ID: 100, Movie ID: 50
 
 Output: Predicted rating → e.g., 4.2/5
 
-Case 3: Neural Collaborative Filtering (NCF)
+### Case 3: Neural Collaborative Filtering (NCF)
 Input: Run training (5 epochs), then:
 
 User ID: 100, Movie ID: 50
@@ -96,10 +113,11 @@ User ID: 100, Movie ID: 50
 Output: Predicted rating → e.g., 4.3/5
 
 User prompted for feedback → Rating saved and model can be retrained.
+
 ---
 
-📦 Dependencies
-All required libraries are listed in requirements.txt:
+## 📦 Dependencies
+# All required libraries are listed in requirements.txt:
 
 pandas
 
@@ -112,9 +130,10 @@ scipy
 surprise
 
 torch
+
 ---
 
-📊 Evaluation Metrics
+## 📊 Evaluation Metrics
 ```
 | Model                      | Evaluation Metric    |
 | -------------------------- | -------------------- |
