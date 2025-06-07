@@ -78,14 +78,25 @@ recommendation_engine/
 
 ## 🚀 How to Run
 
+
 ### 1. Install Requirements
 ```
 pip install -r requirements.txt
+```
 
-2. Run the Application
+### 2. Activate Python Virtual Environment
+(Windows example)
+```
+.\venv\Scripts\activate
+```
+
+### 3. Run the Application
+```
 python main.py
+```
 
-3. Choose a Recommendation Method
+### 4. Choose a Recommendation Method
+```
 1 → Content-Based (Enter movie title)
 
 2 → SVD (Enter user ID and movie ID)
@@ -139,13 +150,12 @@ torch
 ---
 
 ## 🧠 Future Enhancements
+
 Include genres and full movie metadata
-
 Sentiment analysis from descriptions or reviews
-
 Web or REST API interface
-
 Precision/Recall evaluation
+
 ---
 
 ## 📌 Credits
