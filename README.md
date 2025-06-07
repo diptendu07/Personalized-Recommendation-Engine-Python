@@ -1,170 +1,148 @@
 # 🎬 Personalized Recommendation Engine
 
-This project implements a movie recommendation system using two core approaches:
+A modular movie recommendation system built using the [MovieLens 100k dataset](https://grouplens.org/datasets/movielens/). Supports three major recommendation strategies:
+
 - **Content-Based Filtering**
 - **Collaborative Filtering (SVD)**
+- **Neural Collaborative Filtering (NCF)**
 
-The engine is built on the [MovieLens 100k dataset](https://grouplens.org/datasets/movielens/) and provides personalized recommendations based on user preferences, movie content, and collaborative patterns among users.
+Includes dynamic user feedback integration and real-time retraining.
 
 ---
 
 ## 📁 Project Structure
 
-```
+```bash
 recommendation_engine/
-├── data/
-│   ├── u.data
-│   ├── u.item
-│   └── feedback.csv          
-├── content_based.py
-├── collaborative.py
-├── evaluate.py
-├── neural_net.py             
-├── feedback.py               
-├── utils.py
-├── main.py
-├── README.md
-└── requirements.txt
-
-```
-
----
-
-## 💡 Approach & Models
-
-### 1. 📚 Content-Based Filtering (`content_based.py`)
-
-This method recommends movies **similar to a movie the user likes**, based on movie metadata such as titles.
-
-#### Technique:
-- **TF-IDF Vectorization**: Converts movie titles to vectors using `TfidfVectorizer`, capturing keyword importance while removing stopwords.
-- **Cosine Similarity**: Computes similarity scores between movie vectors to find the most similar titles.
-- **Title Matching**: Supports case-insensitive, partial matching to handle user input flexibly.
-
-#### Sentiment-style Filtering:
-While not using textual sentiment explicitly, TF-IDF acts as a **proxy to emotional tone** via keywords (e.g., *Love*, *Horror*, *Action*) — enabling a **semantic similarity** based filtering process.
-
-#### Output:
-Recommends `Top-N` similar movies to the one specified by the user.
+├── data/ # Raw and feedback data
+│ ├── u.data # Ratings
+│ ├── u.item # Movie metadata
+│ └── feedback.csv # Dynamic feedback storage
+├── content_based.py # Content-based recommendation engine
+├── collaborative.py # Collaborative filtering using SVD
+├── neural_net.py # Neural Collaborative Filtering model
+├── evaluate.py # Evaluation utilities (e.g., RMSE)
+├── feedback.py # User feedback capture & integration
+├── utils.py # Data loading and preprocessing
+├── main.py # CLI interface for model selection
+├── requirements.txt
+└── README.md
+```bash
 
 ---
 
-### 2. 👥 Collaborative Filtering - SVD (`collaborative.py`)
+## 🧠 Core Features
 
-This model recommends movies by learning **latent factors** that influence user preferences, using the **Singular Value Decomposition (SVD)** technique.
+### 1️⃣ Content-Based Filtering (`content_based.py`)
+- Recommends movies similar to a given movie based on **TF-IDF vectorization** of titles.
+- Uses **cosine similarity** for scoring.
+- Supports partial and case-insensitive search.
 
-#### Technique:
-- Uses the `Surprise` library to apply SVD on the user-movie ratings matrix.
-- Learns patterns between users and items from historical data.
-- Can predict how much a user would rate a specific unseen movie.
+### 2️⃣ Collaborative Filtering (SVD) (`collaborative.py`)
+- Implements **matrix factorization** using the `Surprise` library.
+- Learns latent user-item features and predicts unseen ratings.
+- Evaluated using **RMSE**.
 
-#### Evaluation:
-- RMSE is used to evaluate prediction accuracy on a test set.
-- Users can input a user ID and movie ID to receive a predicted rating.
+### 3️⃣ Neural Collaborative Filtering (NCF) (`neural_net.py`)
+- Deep learning model using **PyTorch** with user/item embeddings.
+- Learns non-linear user-item interaction patterns via dense layers.
+- Supports **dynamic retraining** with feedback data.
 
-#### Strength:
-Captures **collaborative sentiment** — if users with similar tastes liked certain movies, the model will suggest those to the current user.
+### 🧪 Evaluation (`evaluate.py`)
+- Computes **Root Mean Squared Error (RMSE)** on test data.
+- Used to benchmark SVD and Neural models.
+
+### 💬 Feedback System (`feedback.py`)
+- Collects real-time feedback from users.
+- Stores ratings in `feedback.csv`.
+- Enables **adaptive retraining** of NCF model.
 
 ---
 
-## 🧪 Evaluation (`evaluate.py`)
-
-The system uses **Root Mean Squared Error (RMSE)** to evaluate the collaborative model's accuracy:
-
-- Lower RMSE → Better predictions
-- Implemented using the `accuracy` module from `surprise`
-
----
-
-## ⚙️ How to Run
+## 🚀 How to Run
 
 ### 1. Install Requirements
-
 ```bash
 pip install -r requirements.txt
 
-2. Activate Python Environment (optional)
-# For example, on Windows
-.\venv\Scripts\activate
-
-3. Run the Engine
+2. Run the Application
 python main.py
 
-Choose:
+3. Choose a Recommendation Method
+1 → Content-Based (Enter movie title)
 
-1 for Content-Based Filtering (enter full or partial movie name)
+2 → SVD (Enter user ID and movie ID)
 
-2 for Collaborative Filtering (SVD)
+3 → NCF (Trains model, then prompts for user ID and movie ID)
+```bash
 
-Enter a user ID between 1 and 943
+---
+✅ Example Workflow
+Case 1: Content-Based Filtering
+Input: "Star Wars (1977)"
 
-Enter a movie ID between 1 and 1680
+Output: Similar movies like The Empire Strikes Back, Return of the Jedi, etc.
 
+Case 2: Collaborative Filtering (SVD)
+Input: User ID: 100, Movie ID: 50
+
+Output: Predicted rating → e.g., 4.2/5
+
+Case 3: Neural Collaborative Filtering (NCF)
+Input: Run training (5 epochs), then:
+
+User ID: 100, Movie ID: 50
+
+Output: Predicted rating → e.g., 4.3/5
+
+User prompted for feedback → Rating saved and model can be retrained.
 ---
 
 📦 Dependencies
-Listed in requirements.txt:
+All required libraries are listed in requirements.txt:
 
 pandas
+
+numpy
 
 scikit-learn
 
 scipy
 
-numpy
-
 surprise
 
+torch
 ---
 
-✅ Example Workflow
-Case 1: Content-Based Filtering
-User selects 1 and enters "Star Wars (1977)".
-The engine returns similar movies like The Empire Strikes Back, Return of the Jedi, etc.
-
-Case 2: Collaborative Filtering
-User selects 2, inputs user ID 100 and movie ID 50.
-The engine predicts a rating like 4.2/5, helping the user decide if they might enjoy it.
-
+📊 Evaluation Metrics
+```bash
+| Model                      | Evaluation Metric    |
+| -------------------------- | -------------------- |
+| Content-Based Filtering    | Similarity Score     |
+| Collaborative Filtering    | RMSE                 |
+| Neural Collaborative (NCF) | RMSE + Feedback Loop |
+```bash
 ---
 
-🤖 3. Neural Collaborative Filtering (NCF) (neural_net.py)
-This advanced recommendation method uses a Neural Network architecture to model complex user-item interactions beyond traditional matrix factorization.
+🧠 Future Enhancements
+Include genres and full movie metadata
 
-Key Features:
-Embedding layers for users and movies capture latent features.
+Sentiment analysis from descriptions or reviews
 
-Multi-layer perceptron learns nonlinear relationships between user preferences and item attributes.
+Web or REST API interface
 
-Supports dynamic training with both original ratings and user feedback data.
-
-Benefits:
-More flexible than classical SVD-based collaborative filtering.
-
-Capable of capturing subtle patterns in user behavior for better personalization.
+Precision/Recall evaluation
 ---
 
-💬 User Feedback & Dynamic Model Retraining (feedback.py & updates in main.py)
-This project supports collecting explicit user feedback on recommendations and integrates it into the training process to improve recommendation quality over time.
+📌 Credits
+Dataset: MovieLens 100k
 
-Functionality:
-Users can provide ratings on recommended movies directly after receiving recommendations.
-
-Feedback is stored persistently in data/feedback.csv.
-
-Feedback data is combined with original ratings to retrain models dynamically, especially the Neural Collaborative Filtering model.
-
-Retraining can be triggered interactively within the command-line interface, allowing the system to adapt to evolving user preferences in near real-time.
-
-Advantages:
-Enables continuous learning and model improvement.
-
-Personalizes recommendations more closely to users' current tastes.
-
-Provides a practical feedback loop for real-world recommendation systems.
+Libraries: Surprise, PyTorch, scikit-learn
 ---
 
-```
+## Project Requirements
+
+```bash
 | Requirement                                                                           | Status in Your Project | Comments                                                                                                                             |
 | ------------------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | **Use publicly available dataset (MovieLens)**                                        | ✅ Completed            | Using MovieLens 100k dataset loaded and cleaned in `utils.py` and elsewhere.                                                         |
@@ -175,18 +153,4 @@ Provides a practical feedback loop for real-world recommendation systems.
 | **Experiment with Neural Network-based recommendations (Embeddings or Autoencoders)** | ✅ Completed            | Neural Collaborative Filtering implemented with embeddings and multi-layer perceptron (`neural_net.py`).                             |
 | **Allow users to give feedback on recommendations**                                   | ✅ Completed            | Feedback functionality implemented (`feedback.py`), feedback stored and used.                                                        |
 | **Retrain models dynamically with feedback**                                          | ✅ Completed            | Users can retrain the Neural CF model interactively with feedback (`main.py`).                                                       |
-```
-
-🧠 Conclusion
-This system combines semantic similarity (TF-IDF) and behavioral patterns (SVD) to deliver personalized movie recommendations. It is modular, extensible, and can be enhanced with:
-
-Genre and keyword metadata
-
-Full-text description analysis
-
-Sentiment analysis from reviews
-
-Web or API interface
-
----
-
+```bash
