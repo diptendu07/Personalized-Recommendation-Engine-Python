@@ -117,20 +117,15 @@ User prompted for feedback → Rating saved and model can be retrained.
 ---
 
 ## 📦 Dependencies
-# All required libraries are listed in requirements.txt:
-
+### All required libraries are listed in requirements.txt:
+```
 pandas
-
 numpy
-
 scikit-learn
-
 scipy
-
 surprise
-
 torch
-
+```
 ---
 
 ## 📊 Evaluation Metrics
@@ -143,7 +138,7 @@ torch
 ```
 ---
 
-🧠 Future Enhancements
+## 🧠 Future Enhancements
 Include genres and full movie metadata
 
 Sentiment analysis from descriptions or reviews
@@ -153,10 +148,11 @@ Web or REST API interface
 Precision/Recall evaluation
 ---
 
-📌 Credits
-Dataset: MovieLens 100k
+## 📌 Credits
+### Dataset: MovieLens 100k
 
-Libraries: Surprise, PyTorch, scikit-learn
+### Libraries: Surprise, PyTorch, scikit-learn
+
 ---
 
 ## Project Requirements
